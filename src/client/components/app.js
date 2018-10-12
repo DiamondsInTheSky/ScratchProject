@@ -1,9 +1,29 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import login from './login';
+import signUp from './signUp';
+import error from './error';
+import profileCard from './profileCard';
+import Navigation from './navigationbar'
+
 
 const App = () => (
-    <div className="App">
-        <h1>Hello My Classy Friend</h1>
-    </div>
+
+    
+      <BrowserRouter>
+      
+      <div>
+        <Navigation />
+          <Switch>
+            <Route path="/" component={login} exact />
+            <Route path="/login" component={login} />
+            <Route path="/signup" component={signUp} />
+            <Route path="/profileCard/:userId" component={profileCard} />
+            <Route component={error} />
+          </Switch>
+       </div>
+     </BrowserRouter>    
+    
 );
 
 export default App;
