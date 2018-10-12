@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import login from './login';
-import signUp from './signUp';
+import register from './register';
 import error from './error';
 import profileCard from './profileCard';
 import Navigation from './navigationbar'
@@ -17,7 +17,7 @@ const App = () => (
           <Switch>
             <Route path="/" component={login} exact />
             <Route path="/login" component={login} />
-            <Route path="/signup" component={signUp} />
+            <Route path="/register" component={register} />
             <Route path="/profileCard/:userId" component={profileCard} />
             <Route component={error} />
           </Switch>

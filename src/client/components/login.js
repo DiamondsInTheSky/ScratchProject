@@ -9,10 +9,13 @@ class login extends Component {
       userName: '',
       password: '',
       redirect: false,
+      register: false,
+      isLoggedin: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onChange2 = this.onChange2.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
 
   }
 
@@ -36,12 +39,30 @@ class login extends Component {
       .then(response => {
         if (response) {
           this.setState({ redirect: true })
+          this.setState({ isLoggedin: true })/* To handle logged In User**/
         }
       })
   }
 
+
   render() {
+
+    const { redirect } = this.state;
+    const { register } = this.state;
+    const { isLoggedin } = this.state;/** Yet to figure out how to effectivey handle loggedin user. preferably using cookies */
+
+    if (register) {
+      return <Redirect to='/register'/>;
+    }
+    if (redirect) {
+      return <Redirect to='/profile'/>;
+    }
+    if (isLoggedin) {
+      return <Redirect to='/profile'/>;
+    }
+
     return (
+    
       <div>
 
         <div id="logincontent">
@@ -52,7 +73,8 @@ class login extends Component {
               <input type="text" placeholder="Your account"></input>
               <input type="password" placeholder="Your password"></input>
               <button className="loginbtn" type='submit' value='Submit'>Login</button>
-              <button className="loginbtn">Register</button>
+              <button className="loginbtn" onClick={() => this.setState({ register: true })}>Register</button>
+
             </div>
 
           </form>
