@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css?family=Alex+Brush%7COverpass+Mono:600,700');
+body {
+     font-family: "Segoe UI",Arial,sans-serif;
+}
+#login > div {
+ width: 300px;
+ background: #fff;
+ text-align: center;
+ border: 0px solid #d4d4d4;
+ border-radius: 4px;
+ padding: 45px;
+     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+#logincontent {
+ height: 100%;
+ background-color: #80CBC4;
+ text-align: center;
+}
+#logintitle {
+  padding: 100px 0 30px;
+  font-family: "Alex Brush", cursive !important;
+  font-size: 120px;
+  font-weight: 600;
+  color: #ff99ff;
+  text-shadow: 2px 2px 4px #FF0000;
+ }
+#login{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.loginbtn{
+ width: 100%;
+}
+input {
+   display: block;
+   width: 100%;
+     box-sizing: border-box;
+ background: #f7f7f7 none repeat scroll 0 0;
+   border: 1px solid #d4d4d4;
+   border-radius: 4px;
+   font-size: 1rem;
+   height: 50px;
+   line-height: 50px;
+   padding: .375rem .75rem;
+   color: #495057;
+   background-clip: padding-box;
+   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.loginbtn {
+     color: #fff;
+   margin-top: 20px;
+   background-color: #007bff;
+   border-color: #007bff;
+ padding: .5rem 1rem;
+   font-size: 1.25rem;
+   line-height: 1.5;
+   border-radius: .3rem;
+}
+
+button {
+display: inline-block;
+   font-weight: 400;
+   text-align: center;
+   white-space: nowrap;
+   vertical-align: middle;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+   border: 1px solid transparent;
+   padding: .375rem .75rem;
+   font-size: 1rem;
+   line-height: 1.5;
+   border-radius: .25rem;
+   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}

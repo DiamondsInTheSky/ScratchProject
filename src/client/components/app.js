@@ -1,35 +1,29 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import login from './login';
+import register from './register';
+import error from './error';
+import profileCard from './profileCard';
+import Navigation from './navigationbar'
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.createUser = this.createUser.bind(this);
-    }
 
-    createUser() {
-        fetch('http://localhost:3000/register', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify({ username: username, password: password }),
-        })
-        .then( response => response.json() )
-        .then( data => {
-            
-        })
-        .catch( err => console.log('Error', err));
-    }
+const App = () => (
 
-    render() {
-        return (
-            <div>
-                this is an app.
-                <button onClick={createUser}>Register</button>
-            </div>
-        )
-    }
     
-};
+      <BrowserRouter>
+      
+      <div>
+        <Navigation />
+          <Switch>
+            <Route path="/" component={login} exact />
+            <Route path="/login" component={login} />
+            <Route path="/register" component={register} />
+            <Route path="/profileCard/:userId" component={profileCard} />
+            <Route component={error} />
+          </Switch>
+       </div>
+     </BrowserRouter>    
+    
+);
 
 export default App;
