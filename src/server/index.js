@@ -6,25 +6,10 @@ const app = express();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-// postgres require
-const pg = require('pg');
+// postgres database connection
+const pgp = require('pg-promise')();
+const db = pgp('postgres://ralggtsz:eh8MiUNlYEBh-iLds9kzp5zePnjPm-oE@nutty-custard-apple.db.elephantsql.com:5432/ralggtsz');
 
-// postgres connect url and client
-// const conString = "INSERT_YOUR_POSTGRES_URL_HERE" // Can be found in the Details page
-// const client = new pg.Client(conString);
-// client.connect(function(err) {
-//   if(err) {
-//     return console.error('could not connect to postgres', err);
-//   }
-//   client.query('SELECT NOW() AS "theTime"', function(err, result) {
-//     if(err) {
-//       return console.error('error running query', err);
-//     }
-//     console.log(result.rows[0].theTime);
-//     // >> output: 2018-08-23T14:02:57.117Z
-//     client.end();
-//   });
-// });
 
 app.use(bodyParser.json());
 
@@ -39,13 +24,15 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// serialize and deserialize
+// serialize and deserialize (or give and check cookie)
+// maybe put middleware in a new file
 passport.serializeUser((user, done) => {
   done(null, user.user_id);
 });
 passport.deserializeUser((id, done) => {
-  client.one('query', [id])
+  db.one('SELECT * FROM users WHERE id = $1', 1)
     .then((user) => {
+      alert('COOKIE FOUND');
       done(null, user);
     })
     .catch((err) => {
@@ -53,7 +40,7 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-// passport local strategy use (what does this do?)
+// passport local strategy use (what does this do? => auths the user)
 // passport.use(new LocalStrategy({
 //   usernameField: 'name',
 //   passwordField: 'pass',
@@ -61,6 +48,7 @@ passport.deserializeUser((id, done) => {
 //   // example database send
 //   // return db.one("query", [username, password])
 //   //   .then((result)=> {
+            //successful log in
 //   //     return done(null, result);
 //   //   })
 //   //   .catch((err) => {
@@ -70,16 +58,27 @@ passport.deserializeUser((id, done) => {
 
 
 // Routes //
-app.get('/', (req, res) => {
-  res.send('hi');
-});
+app.get('/', 
+  (req, res) => {
+    res.send('hi');
+  }
+);
 
-app.post('/register', passport.authenticate('local'), (req, res) => {
+app.post('/register', 
+  passport.authenticate('local'), 
+  (req, res) => {
   res.send(req.user);
 });
 
-app.post('/login', passport.authenticate('local'), (req, res) => {
-  
+app.post('/login', (req, res) => {
+  passport.deserializeUser(req.body)
+
+}, 
+// check cookie, if cookie redirect to HOME else go to next MIDDLEWARE
+  passport.authenticate('local'), 
+  //give cookie
+  (req, res) => {
+  // ?
 })
 
 app.listen(3000, () => console.log('server is running'));
