@@ -10,6 +10,11 @@ const LocalStrategy = require('passport-local').Strategy;
 const pgp = require('pg-promise')();
 const db = pgp('postgres://ralggtsz:eh8MiUNlYEBh-iLds9kzp5zePnjPm-oE@nutty-custard-apple.db.elephantsql.com:5432/ralggtsz');
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use(bodyParser.json());
 
@@ -19,6 +24,8 @@ app.use(require('express-session')({
   resave: false,
   saveUninitialized: false,
 }));
+
+
 
 // something we always need to use for passport
 app.use(passport.initialize());
@@ -56,26 +63,29 @@ passport.deserializeUser((id, done) => {
 //   //   });
 // });
 
-
 // Routes //
 app.get('/', 
   (req, res) => {
+    console.log('************app.get "/"');
     res.send('hi');
   }
 );
 
 app.post('/register', 
-  passport.authenticate('local'), 
+  // passport.authenticate('local'), 
   (req, res) => {
+    console.log('*********register');
   res.send(req.user);
 });
 
 app.post('/login', (req, res) => {
-  passport.deserializeUser(req.body)
-
+  // passport.deserializeUser(req.body)
+  console.log('*********/login', req.body);
+  /* res.send(true) is needed for force rerender */
+  res.send(true);
 }, 
 // check cookie, if cookie redirect to HOME else go to next MIDDLEWARE
-  passport.authenticate('local'), 
+  // passport.authenticate('local'), 
   //give cookie
   (req, res) => {
   // ?
