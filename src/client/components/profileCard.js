@@ -7,13 +7,21 @@ class profileCard extends Component {
 
     this.state = {
       isLoggedin: true,
-      profile: {},
+      profile: {
+        lastname: '',
+        firstname: '',
+        email: '', 
+        github: '',
+        linkedIn: '',
+        facebook: '', 
+        twitter: '',
+        },
     };
 
 
   }
-  componentDidMount() {
-    fetch(`http://localhost:3000/profile/${this.props.match.params.userName}`)
+  componentDidMount() { 
+    fetch(`http://localhost:3000/profile/${this.props.match.params.username}`)
       .then(response => response.json())
       .then(data => this.setState({profile: data}))
       .catch(err => console.log(err));
