@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect} from 'react-router-dom';
 
 class register extends Component {
 
@@ -8,6 +9,7 @@ class register extends Component {
       fName: '',
       lName: '',
       email: '',
+      githubURL: '',
       facebookURL: '',
       twitterURL: '',
       linkedInURL: '',
@@ -15,40 +17,46 @@ class register extends Component {
       signupSuccess: false,
     };
 
-    this.handleChange1 = this.handleChange1.bind(this);
-    this.handleChange2 = this.handleChange2.bind(this);
-    this.handleChange3 = this.handleChange3.bind(this);
-    this.handleChange4 = this.handleChange4.bind(this);
-    this.handleChange5 = this.handleChange5.bind(this);
-    this.handleChange6 = this.handleChange6.bind(this);
-    this.handleChange8 = this.handleChange8.bind(this);
+    this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
+    this.handleChangeLastName = this.handleChangeLastName.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangeGithub = this.handleChangeGithub.bind(this);
+    this.handleChangeFacebook = this.handleChangeFacebook.bind(this);
+    this.handleChangeTwitter = this.handleChangeTwitter.bind(this);
+    this.handleChangeLinkedin = this.handleChangeLinkedin.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange1(event) {
+  handleChangeFirstName(event) {
     this.setState({ fName: event.target.value });
   }
-  handleChange2(event) {
+  handleChangeLastName(event) {
     this.setState({ lName: event.target.value });
   }
-  handleChange3(event) {
+  handleChangeEmail(event) {
     this.setState({ email: event.target.value });
   }
-  handleChange4(event) {
+
+  handleChangeGithub(event) {
+    this.setState({ githubURL: event.target.value });
+  }
+  handleChangeFacebook(event) {
     this.setState({ facebookURL: event.target.value });
   }
-  handleChange5(event) {
+  handleChangeTwitter(event) {
     this.setState({ twitterURL: event.target.value });
   }
-  handleChange6(event) {
+  handleChangeLinkedin(event) {
     this.setState({ linkedInURL: event.target.value });
   }
-  handleChange8(event) {
+  handleChangePassword(event) {
     this.setState({ password: event.target.value });
   }
 
   handleSubmit(event) {
     event.preventDefault();
+
     fetch('http://localhost:3000/register', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
@@ -56,17 +64,19 @@ class register extends Component {
         fName: this.state.fName,
         lName: this.state.lName,
         email: this.state.email, /**Email is also being used as sign in username */
+        githubURL: this.state.githubURL,
+        linkedInURL: this.state.linkedInURL,
         facebookURL: this.state.facebookURL,
         twitterURL: this.state.twitterURL,
         password: this.state.password
-      }).then(res => res.json())
-        .then(response => {
-          if (response) {
-            this.setState({ signupSuccess: true })/* To handle logged In User**/
-          }
-        })
+      })
 
-    })
+    }).then(res => res.json())
+      .then(response => {
+        if (response) {
+          this.setState({ signupSuccess: true })/* To handle logged In User**/
+        }
+      })
   }
 
 
@@ -74,29 +84,32 @@ class register extends Component {
     // put render logic here
     const { signupSuccess } = this.state;
     if (signupSuccess) {
-      return <Redirect to='/login' />;
+      return <Redirect to='/profileCard' user={this.state.email}/>;
     }
     return (
       <div id="signupcontent">
+        <div id="logintitle">MoDo</div>
         <form id="signupform" onSubmit={this.handleSubmit}>
           <div>
             <h1>Sign up for free</h1>
             <label>First Name:</label>
-            <input id="signupfname" type="text" placeholder="(required)" value={this.state.fName} onChange={this.handleChange1} ></input>
+            <input id="signupfname" type="text" placeholder="(required)" value={this.state.fName} onChange={this.handleChangeFirstName} ></input>
             <label>Last Name:</label>
-            <input id="signuplname" type="text" placeholder="(required)" value={this.state.lName} onChange={this.handleChange2} ></input>
+            <input id="signuplname" type="text" placeholder="(required)" value={this.state.lName} onChange={this.handleChangeLastName} ></input>
             <label>Facebook URL:</label>
-            <input type="text" value={this.state.facebookURL} onChange={this.handleChange4} ></input>
+            <input type="text" value={this.state.facebookURL} onChange={this.handleChangeFacebook} ></input>
             <label>Twitter URL:</label>
-            <input type="text" value={this.state.twitterURL} onChange={this.handleChange5} ></input>
+            <input type="text" value={this.state.twitterURL} onChange={this.handleChangeTwitter} ></input>
             <label>Linkedin URL:</label>
-            <input type="text" value={this.state.linkedInURL} onChange={this.handleChange6} ></input>
-
+            <input type="text" value={this.state.linkedInURL} onChange={this.handleChangeLinkedin} ></input>
+            <label>Github URL:</label>
+            <input type="text" value={this.state.githubURL} onChange={this.handleChangeGithub} ></input>
             <label>Email:</label>
-            <input id="signupemail" type="text" placeholder="(required)" value={this.state.email} onChange={this.handleChange3} ></input>
+            <input id="signupemail" type="text" placeholder="(required)" value={this.state.email} onChange={this.handleChangeEmail} ></input>
             <label>Password:</label>
-            <input id="signuppassword" type="password" placeholder="(required)" value={this.state.password} onChange={this.handleChange8} ></input>
+            <input id="signuppassword" type="password" placeholder="(required)" value={this.state.password} onChange={this.handleChangePassword} ></input>
             <button id="signupbtn">Sign-up with MoDo</button>
+            <button className="registerbtn">Back to Log In</button>
           </div>
         </form>
       </div>

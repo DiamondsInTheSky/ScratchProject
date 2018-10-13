@@ -19,7 +19,6 @@ class login extends Component {
   }
 
   onChange(event) {
-    alert('hello');
     this.setState({ userName: event.target.value });
   }
   onChange2(event) {
@@ -27,6 +26,7 @@ class login extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
+
     fetch('http://localhost:3000/login', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
@@ -43,17 +43,16 @@ class login extends Component {
       })
   }
 
-
   render() {
 
     const { register } = this.state;
     const { isLoggedin } = this.state;/** Yet to figure out how to effectivey handle loggedin user. preferably using cookies */
 
     if (register) {
-      return <Redirect to='/register'/>;
+      return <Redirect to='/register' />;
     }
     if (isLoggedin) {
-      return <Redirect to='/profile'/>;
+      return <Redirect to='/profileCard' user={this.state.userName}/>;
     }
 
     return (
@@ -65,10 +64,10 @@ class login extends Component {
           <form id="login" onSubmit={this.handleSubmit}>
             <div className="content">
               <h1>User Login</h1>
-              <input type="text" placeholder="Your account" onChange={this.onChange}></input>
-              <input type="password" placeholder="Your password" onChange={this.onChange2}></input>
+              <input type="text" placeholder="Email Address" onChange={this.onChange}></input>
+              <input type="password" placeholder="Password" onChange={this.onChange2}></input>
               <button className="loginbtn" type='submit' value='Submit'>Login</button>
-              <button className="loginbtn" onClick={() => this.setState({ register: true })}>Register</button>
+              <button className="registerbtn" onClick={() => this.setState({ register: true })}>Register</button>
 
             </div>
 

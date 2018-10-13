@@ -18,7 +18,7 @@ const App = () => (
             <Route path="/" component={login} exact />
             <Route path="/login" component={login} />
             <Route path="/register" component={register} />
-            <Route path="/profileCard/:userId" component={profileCard} />
+            <Route path="/profileCard" component={profileCard} />
             <Route component={error} />
           </Switch>
        </div>

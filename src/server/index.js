@@ -26,31 +26,47 @@ app.use(require('express-session')({
 
 app.post('/login',
   (req, res) => {
-    console.log('*********/login', req.body);
+    db.one("SELECT * FROM users WHERE email = $1;", [req.body.userName])
+    .then(data => {
+      if (data.password === req.body.password) {
+        return res.send(true);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
     /* res.send(true) is needed for force rerender */
-    res.send(true);
   }); 
 
-app.get('/', (req, res) => {
-  db.query('SELECT * FROM users')
-  .then(data => {
-    console.log(typeof data);
-    // res.send(data);
-    })
-    .catch(error => {
-      console.log('******ERRROR*****', error);
+  
+  app.post('/register', 
+  (req, res) => {
+    db.none('INSERT INTO users(firstname, lastname, email, github, linkedin, facebook, twitter, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
+      [req.body.fName, req.body.lName, req.body.email, req.body.githubURL, req.body.linkedInURL, req.body.facebookURL, req.body.twitterURL, req.body.password]
+    ).then(result => {
+      return res.send(true);
+    }).catch(err => {
+      console.log(err);
     });
   });
 
-// app.post('/register', 
-//   // passport.authenticate('local'), 
-//   (req, res) => {
-//     res.send(true);
-//     console.log('*********register');
-//   // res.send(req.user);
-// });
+  app.get('/getUser', (req, res) => {
+    console.log(req);
+  })
+  
 
-// check cookie, if cookie redirect to HOME else go to next MIDDLEWARE
+  // app.get('/', (req, res) => {
+  //   db.query('SELECT * FROM users')
+  //   .then(data => {
+  //     console.log(typeof data);
+  //     // res.send(data);
+  //     })
+  //     .catch(error => {
+  //       console.log('******ERRROR*****', error);
+  //     });
+  //   });
+
+  // check cookie, if cookie redirect to HOME else go to next MIDDLEWARE
   // passport.authenticate('local'), 
   //give cookie
   // (req, res) => {
