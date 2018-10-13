@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
@@ -60,4 +58,3 @@ class profileCard extends Component {
 }
 
 module.exports = profileCard;
->>>>>>> 42014cb6dd15136d5093d33ca3f3de973ce2ac8b

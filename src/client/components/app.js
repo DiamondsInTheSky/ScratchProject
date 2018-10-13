@@ -18,11 +18,7 @@ const App = () => (
             {/* <Route path="/" component={profileCard} exact /> */}
             <Route path="/login" component={login} />
             <Route path="/register" component={register} />
-<<<<<<< HEAD
-            <Route path="/profileCard" component={profileCard} />
-=======
             <Route path="/profile/:username" component={profileCard} />
->>>>>>> 42014cb6dd15136d5093d33ca3f3de973ce2ac8b
             <Route component={error} />
           </Switch>
        </div>
