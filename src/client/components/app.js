@@ -15,10 +15,10 @@ const App = () => (
       <div>
         <Navigation />
           <Switch>
-            <Route path="/" component={login} exact />
+            {/* <Route path="/" component={profileCard} exact /> */}
             <Route path="/login" component={login} />
             <Route path="/register" component={register} />
-            <Route path="/profileCard/:userId" component={profileCard} />
+            <Route path="/profile/:username" component={profileCard} />
             <Route component={error} />
           </Switch>
        </div>
