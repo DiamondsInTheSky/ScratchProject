@@ -59,14 +59,13 @@ class register extends Component {
         facebookURL: this.state.facebookURL,
         twitterURL: this.state.twitterURL,
         password: this.state.password
-      }).then(res => res.json())
+      })
+    }).then(res => res.json())
         .then(response => {
           if (response) {
             this.setState({ signupSuccess: true })/* To handle logged In User**/
           }
         })
-
-    })
   }
 
 
@@ -78,9 +77,14 @@ class register extends Component {
     }
     return (
       <div id="signupcontent">
-        <form id="signupform">
+        <form id="signupform" onSubmit={this.handleSubmit}>
           <div>
             <h1>Sign up for free</h1>
+
+            <label>Email:</label>
+            <input id="signupemail" type="text" placeholder="(required)" value={this.state.email} onChange={this.handleChange3} ></input>
+            <label>Password:</label>
+            <input id="signuppassword" type="password" placeholder="(required)" value={this.state.password} onChange={this.handleChange8} ></input>
             <label>First Name:</label>
             <input id="signupfname" type="text" placeholder="(required)" value={this.state.fName} onChange={this.handleChange1} ></input>
             <label>Last Name:</label>
@@ -92,10 +96,6 @@ class register extends Component {
             <label>Linkedin URL:</label>
             <input type="text" value={this.state.linkedInURL} onChange={this.handleChange6} ></input>
 
-            <label>Email:</label>
-            <input id="signupemail" type="text" placeholder="(required)" value={this.state.email} onChange={this.handleChange3} ></input>
-            <label>Password:</label>
-            <input id="signuppassword" type="password" placeholder="(required)" value={this.state.password} onChange={this.handleChange8} ></input>
             <button id="signupbtn">Sign-up with MoDo</button>
           </div>
         </form>

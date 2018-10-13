@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect} from 'react-router-dom';
+import { Redirect, Link} from 'react-router-dom';
 
 class login extends Component {
   constructor(props) {
@@ -8,11 +8,12 @@ class login extends Component {
     this.state = {
       userName: '',
       password: '',
-      register: false,
+      // register: false,
       isLoggedin: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onChange2 = this.onChange2.bind(this);
+    this.profileRender = this.profileRender.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
 
@@ -23,6 +24,9 @@ class login extends Component {
   }
   onChange2(event) {
     this.setState({ password: event.target.value });
+  }
+  profileRender() {
+ 
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -37,7 +41,8 @@ class login extends Component {
     }).then(res => res.json())
       .then(response => {
         if (response) {
-          this.setState({ isLoggedin: true })/* To handle logged In User**/
+          this.setState({ isLoggedin: true });/* To handle logged In User**/
+          // <Link to={`/profile/${this.state.userName}`}></Link>
         }
       })
   }
@@ -45,14 +50,13 @@ class login extends Component {
 
   render() {
 
-    const { register } = this.state;
+    // const { register } = this.state;
+    
     const { isLoggedin } = this.state;/** Yet to figure out how to effectivey handle loggedin user. preferably using cookies */
 
-    if (register) {
-      return <Redirect to='/register'/>;
-    }
+   
     if (isLoggedin) {
-      return <Redirect to='/profile'/>;
+      return <Redirect to={`/profile/${this.state.userName}`}/>;;
     }
 
     return (
