@@ -65,24 +65,12 @@ passport.use(new LocalStrategy({
 }));
   
 app.post('/login',
-// passport.deserializeUser(req.body),
   passport.authenticate('local'),
-  // passport.serializeUser(req.body.username),
   (req, res) => {
     console.log('*********/login', req.body);
     /* res.send(true) is needed for force rerender */
     res.send(true);
 }); 
-
-// app.post('/register',
-// // passport.deserializeUser(req.body),
-//   passport.authenticate('local'),
-//   // passport.serializeUser(req.body.username),
-//   (req, res) => {
-//     console.log('*********/login', req.body);
-//     /* res.send(true) is needed for force rerender */
-//     res.send(true);
-// }); 
 
 app.post('/register', 
   (req, res) => {
@@ -94,18 +82,6 @@ app.post('/register',
       console.log(err);
     });
   });
-
-// app.get('/', (req, res) => {
-//   db.query('SELECT * FROM users')
-//     .then(data => {
-//       console.log(typeof data);
-//       res.send(data);
-//       })
-//     .catch(error => {
-//       console.log('******ERRROR*****', error);
-//     });
-// });
-
 
 app.listen(3000, () => console.log('server is running'));
 db.connect();

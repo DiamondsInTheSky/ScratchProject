@@ -31,15 +31,21 @@ class login extends Component {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userName: this.state.userName,
+        email: this.state.userName,
         password: this.state.password
       })
 
     }).then(res => res.json())
+      .catch(err => {
+        console.log('***line40', err);
+      })
       .then(response => {
         if (response) {
           this.setState({ isLoggedin: true })/* To handle logged In User**/
         }
+      })
+      .catch(err => {
+        console.log('***line 48', err);
       })
   }
 
