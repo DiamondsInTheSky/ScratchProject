@@ -61,10 +61,11 @@ class login extends Component {
     const { isLoggedin } = this.state;/** Yet to figure out how to effectivey handle loggedin user. preferably using cookies */
 
     if (register) {
-      return <Redirect to='/register' />;
+      return <Redirect to={`/register`} />
     }
+
     if (isLoggedin) {
-      return <Redirect to='/profileCard' user={this.state.userName}/>;
+      return <Redirect to={`/profile/${this.state.userName}`} />;
     }
 
     return (
