@@ -8,7 +8,6 @@ class login extends Component {
     this.state = {
       userName: '',
       password: '',
-      redirect: false,
       register: false,
       isLoggedin: false,
     };
@@ -38,7 +37,6 @@ class login extends Component {
     }).then(res => res.json())
       .then(response => {
         if (response) {
-          this.setState({ redirect: true })
           this.setState({ isLoggedin: true })/* To handle logged In User**/
         }
       })
@@ -47,15 +45,11 @@ class login extends Component {
 
   render() {
 
-    const { redirect } = this.state;
     const { register } = this.state;
     const { isLoggedin } = this.state;/** Yet to figure out how to effectivey handle loggedin user. preferably using cookies */
 
     if (register) {
       return <Redirect to='/register'/>;
-    }
-    if (redirect) {
-      return <Redirect to='/profile'/>;
     }
     if (isLoggedin) {
       return <Redirect to='/profile'/>;
