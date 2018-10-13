@@ -78,7 +78,7 @@ class register extends Component {
     }
     return (
       <div id="signupcontent">
-        <form id="signupform">
+        <form id="signupform" onSubmit={this.handleSubmit}>
           <div>
             <h1>Sign up for free</h1>
             <label>First Name:</label>

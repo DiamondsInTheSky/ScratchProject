@@ -19,6 +19,7 @@ class login extends Component {
   }
 
   onChange(event) {
+    alert('hello');
     this.setState({ userName: event.target.value });
   }
   onChange2(event) {
@@ -64,8 +65,8 @@ class login extends Component {
           <form id="login" onSubmit={this.handleSubmit}>
             <div className="content">
               <h1>User Login</h1>
-              <input type="text" placeholder="Your account"></input>
-              <input type="password" placeholder="Your password"></input>
+              <input type="text" placeholder="Your account" onChange={this.onChange}></input>
+              <input type="password" placeholder="Your password" onChange={this.onChange2}></input>
               <button className="loginbtn" type='submit' value='Submit'>Login</button>
               <button className="loginbtn" onClick={() => this.setState({ register: true })}>Register</button>
 

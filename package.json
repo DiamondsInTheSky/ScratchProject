@@ -2,7 +2,7 @@
   "name": "scratchproject",
   "version": "1.0.0",
   "description": "We will build it!",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
     "server": "nodemon src/server/index.js",
