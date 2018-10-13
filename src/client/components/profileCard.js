@@ -20,10 +20,14 @@ class profileCard extends Component {
 
 
   }
-  componentDidMount() { 
+
+  componentDidMount() {
     fetch(`http://localhost:3000/profile/${this.props.match.params.username}`)
       .then(response => response.json())
-      .then(data => this.setState({profile: data}))
+      .then(data => {
+        alert(data)// this data is everything you need, take out the alert if you recieve it
+        this.setState({profile: data})
+      })
       .catch(err => console.log(err));
   }
 

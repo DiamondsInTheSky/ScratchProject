@@ -65,8 +65,7 @@ class login extends Component {
     }
 
     if (isLoggedin) {
-      console.log(this.state.userName)
-      return <Redirect to={`/profile/${this.state.userName}`} />
+      return <Redirect to={`/profile/${this.state.userName}`} />;
     }
 
     return (
