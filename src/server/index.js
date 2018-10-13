@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // require statements for passport
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const pgp = require('pg-promise')(/*options*/);
 const cn = 'postgres://ralggtsz:eh8MiUNlYEBh-iLds9kzp5zePnjPm-oE@nutty-custard-apple.db.elephantsql.com:5432/ralggtsz';
@@ -93,16 +95,16 @@ app.post('/register',
     });
   });
 
-app.get('/', (req, res) => {
-  db.query('SELECT * FROM users')
-    .then(data => {
-      console.log(typeof data);
-      res.send(data);
-      })
-    .catch(error => {
-      console.log('******ERRROR*****', error);
-    });
-});
+// app.get('/', (req, res) => {
+//   db.query('SELECT * FROM users')
+//     .then(data => {
+//       console.log(typeof data);
+//       res.send(data);
+//       })
+//     .catch(error => {
+//       console.log('******ERRROR*****', error);
+//     });
+// });
 
 
 app.listen(3000, () => console.log('server is running'));
