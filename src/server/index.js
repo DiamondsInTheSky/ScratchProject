@@ -6,25 +6,17 @@ const app = express();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-// postgres require
-const pg = require('pg');
+const pgp = require('pg-promise')(/*options*/);
 
-// postgres connect url and client
-// const conString = "INSERT_YOUR_POSTGRES_URL_HERE" // Can be found in the Details page
-// const client = new pg.Client(conString);
-// client.connect(function(err) {
-//   if(err) {
-//     return console.error('could not connect to postgres', err);
-//   }
-//   client.query('SELECT NOW() AS "theTime"', function(err, result) {
-//     if(err) {
-//       return console.error('error running query', err);
-//     }
-//     console.log(result.rows[0].theTime);
-//     // >> output: 2018-08-23T14:02:57.117Z
-//     client.end();
-//   });
-// });
+const cn = 'postgres://ralggtsz:eh8MiUNlYEBh-iLds9kzp5zePnjPm-oE@nutty-custard-apple.db.elephantsql.com:5432/ralggtsz';
+const db = pgp(cn);
+
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use(bodyParser.json());
 
@@ -39,13 +31,17 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// serialize and deserialize
+// serialize and deserialize (or give and check cookie)
+// maybe put middleware in a new file
 passport.serializeUser((user, done) => {
-  done(null, user.user_id);
+  console.log('*********SERIALIZED**********', user);
+  done(null, user.email);
 });
+
 passport.deserializeUser((id, done) => {
-  client.one('query', [id])
+  db.any('SELECT * FROm users;')
     .then((user) => {
+      console.log('user');
       done(null, user);
     })
     .catch((err) => {
@@ -53,33 +49,69 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-// passport local strategy use (what does this do?)
-// passport.use(new LocalStrategy({
-//   usernameField: 'name',
-//   passwordField: 'pass',
-// }), (username, password, done) => {
-//   // example database send
-//   // return db.one("query", [username, password])
-//   //   .then((result)=> {
-//   //     return done(null, result);
-//   //   })
-//   //   .catch((err) => {
-//   //     return done(null, false, { message: 'Wrong user name or password' });
-//   //   });
-// });
 
-
-// Routes //
-app.get('/', (req, res) => {
-  res.send('hi');
-});
-
-app.post('/register', passport.authenticate('local'), (req, res) => {
-  res.send(req.user);
-});
-
-app.post('/login', passport.authenticate('local'), (req, res) => {
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password'
+},
+(username, password, done) => {
+  console.log('LOGGING IN: ', username, password);
+  return db.one(`SELECT email FROM users WHERE email = $1`, [username, password])
+    .then((result)=> {
+      return done(null, result);
+    })
+    .catch((err) => {
+      console.log("login error");
+      return done(null, false, {message:'Wrong user name or password'});
+    });
+}));
   
-})
+app.post('/login',
+// passport.deserializeUser(req.body),
+  passport.authenticate('local'),
+  // passport.serializeUser(req.body.username),
+  (req, res) => {
+    console.log('*********/login', req.body);
+    /* res.send(true) is needed for force rerender */
+    res.send(true);
+}); 
+
+app.post('/register',
+// passport.deserializeUser(req.body),
+  passport.authenticate('local'),
+  // passport.serializeUser(req.body.username),
+  (req, res) => {
+    console.log('*********/login', req.body);
+    /* res.send(true) is needed for force rerender */
+    res.send(true);
+}); 
+
+app.get('/', (req, res) => {
+  db.query('SELECT * FROM users')
+    .then(data => {
+      console.log(typeof data);
+      res.send(data);
+      })
+    .catch(error => {
+      console.log('******ERRROR*****', error);
+    });
+});
+
 
 app.listen(3000, () => console.log('server is running'));
+db.connect();
+
+// {
+//   "id": 1,
+//   "firstname": "joel",
+//   "lastname": "perkins",
+//   "email": "joel.climbs@gmail.com",
+//   "password": "jeeves",
+//   "github": "https://github.com/joelkperkins",
+//   "linkedin": "https://www.linkedin.com/in/joelkperkins/",
+//   "facebook": null,
+//   "twitter": null
+// },
+// return db.one("SELECT user_id, user_name, user_email, user_role " +
+//         "FROM users " +
+//         "WHERE user_email=$1 AND user_pass=$2";
