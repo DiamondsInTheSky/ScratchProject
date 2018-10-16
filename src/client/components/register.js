@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect} from 'react-router-dom';
+import { Redirect, Link} from 'react-router-dom';
 
-class register extends Component {
+class Register extends Component {
 
   constructor(props) {
     super(props);
@@ -86,7 +86,13 @@ class register extends Component {
     // put render logic here
     const { signupSuccess } = this.state;
     if (signupSuccess) {
+<<<<<<< HEAD
       return <Redirect to='/login' user={this.state.email}/>;
+||||||| merged common ancestors
+      return <Redirect to='/profileCard' user={this.state.email}/>;
+=======
+      return <Redirect to='/login'/>;
+>>>>>>> e052016a813ea596d17a67eefbcf46d38e9502a1
     }
     return (
       <div id="signupcontent">
@@ -115,8 +121,8 @@ class register extends Component {
             <input id="signupemail" type="text" placeholder="(required)" value={this.state.email} onChange={this.handleChangeEmail} ></input>
             <label>Password:</label>
             <input id="signuppassword" type="password" placeholder="(required)" value={this.state.password} onChange={this.handleChangePassword} ></input>
-            <button id="signupbtn">Sign-up with MoDo</button>
-            <button className="registerbtn">Back to Log In</button>
+            <button type="submit" id="signupbtn">Sign-up with MoDo</button>
+            <button className="registerbtn"><Link to = '/login'>Back to Log In</Link></button>
           </div>
         </form>
       </div>
@@ -126,4 +132,4 @@ class register extends Component {
 
 }
 
-module.exports = register;
+module.exports = Register;
