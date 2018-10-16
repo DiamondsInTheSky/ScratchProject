@@ -5,11 +5,10 @@ const app = express();
 // require statements for passport
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-
-const pgp = require('pg-promise')(/*options*/);
-const cn = 'postgres://ralggtsz:eh8MiUNlYEBh-iLds9kzp5zePnjPm-oE@nutty-custard-apple.db.elephantsql.com:5432/ralggtsz';
-const db = pgp(cn);
-
+const userController = require('./Controllers/userController');
+const eventController = require('./Controllers/eventController');
+const responseController = require('./Controllers/responseController');
+const db = require('./postgresql.js');
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -18,18 +17,15 @@ app.use(function(req, res, next) {
 });
 
 app.use(bodyParser.json());
-
 // allows us to create the express sessions for passport
 app.use(require('express-session')({
   secret: 'secretive',
   resave: false,
   saveUninitialized: false,
 }));
-
 // something we always need to use for passport
 app.use(passport.initialize());
 app.use(passport.session());
-
 // serialize and deserialize (or give and check cookie)
 // maybe put middleware in a new file
 passport.serializeUser((user, done) => {
@@ -72,31 +68,39 @@ app.post('/login',
     res.send(true);
 }); 
 
-app.post('/register', 
-  (req, res) => {
-    db.none('INSERT INTO users(firstname, lastname, email, github, linkedin, facebook, twitter, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
-      [req.body.fName, req.body.lName, req.body.email, req.body.githubURL, req.body.linkedInURL, req.body.facebookURL, req.body.twitterURL, req.body.password]
-    ).then(result => {
-      return res.send(true);
-    }).catch(err => {
-      console.log(err);
-    });
-  });
+app.post('/register', userController.addUser, (req, res) => {
+  res.send(true);
+});
+app.get('/profile/:username', userController.grabProfile, (req, res) => {
+  res.json(res.locals.data);
+});
 
-app.get('/profile/:username', (req, res) => {
-    console.log('***PROFILE***', req.body, req.params.username);
-    db.one('SELECT * FROM users WHERE email = $1', [req.params.username])
-    .then(data => {
-     return res.send(data)
-    })
-    .catch(err => {
-      console.log(err);
-    })
+app.post('/createEvent', eventController.addEvent, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.get('/getUsers', userController.getUsers, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.patch('/updateResponse', responseController.updateResponse, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.get('/getEvents', eventController.getEvents, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.get('/getStatuses', eventController.getStatuses, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.post('/addUsers', responseController.addUsers, (req, res) => {
+  res.json(res.locals.data);
 })
 
 app.listen(3000, () => console.log('server is running'));
 db.connect();
-
 // {
 //   "id": 1,
 //   "firstname": "joel",
