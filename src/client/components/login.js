@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Link} from 'react-router-dom';
 
-class login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -92,5 +92,5 @@ class login extends Component {
   }
 }
 
-module.exports = login;
+module.exports = Login;
 

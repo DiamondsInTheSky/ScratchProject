@@ -9,21 +9,21 @@ import Navigation from './navigationbar'
 
 const App = () => (
 
-    
-      <BrowserRouter>
-      
-      <div>
-        <Navigation />
-          <Switch>
-             <Route path="/" component={profileCard} exact />
-            <Route path="/login" component={login} />
-            <Route path="/register" component={register} />
-            <Route path="/profile/:username" component={profileCard} />
-            <Route component={error} />
-          </Switch>
-       </div>
-     </BrowserRouter>    
-    
+
+  <BrowserRouter>
+
+    <div>
+      <Navigation />
+      <Switch>
+        <Route path="/" component={profileCard} exact />
+        <Route path="/login" component={login} />
+        <Route path="/register" component={register} />
+        <Route path="/profile/:username" component={profileCard} />
+        <Route component={error} />
+      </Switch>
+    </div>
+  </BrowserRouter>
+
 );
 
 export default App;
