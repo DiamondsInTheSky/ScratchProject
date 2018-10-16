@@ -5,11 +5,18 @@ const app = express();
 // require statements for passport
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+<<<<<<< HEAD
 
 const pgp = require('pg-promise')(/*options*/);
 const cn = 'postgres://uxughpph:07L2n9DVEJJWX1WilogOo88xh89QzKVq@elmer.db.elephantsql.com:5432/uxughpph';
 const db = pgp(cn);
 
+=======
+const userController = require('./Controllers/userController');
+const eventController = require('./Controllers/eventController');
+const responseController = require('./Controllers/responseController');
+const db = require('./postgresql.js');
+>>>>>>> master
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -18,18 +25,15 @@ app.use(function (req, res, next) {
 });
 
 app.use(bodyParser.json());
-
 // allows us to create the express sessions for passport
 app.use(require('express-session')({
   secret: 'secretive',
   resave: false,
   saveUninitialized: false,
 }));
-
 // something we always need to use for passport
 app.use(passport.initialize());
 app.use(passport.session());
-
 // serialize and deserialize (or give and check cookie)
 // maybe put middleware in a new file
 passport.serializeUser((user, done) => {
@@ -72,6 +76,7 @@ app.post('/login',
     res.send(true);
   });
 
+<<<<<<< HEAD
 app.post('/register',
   (req, res) => {
     db.none('INSERT INTO users(firstname, lastname, email, github, linkedin, facebook, twitter, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
@@ -92,11 +97,41 @@ app.get('/profile/:username', (req, res) => {
     .catch(err => {
       console.log(err);
     })
+=======
+app.post('/register', userController.addUser, (req, res) => {
+  res.send(true);
+});
+app.get('/profile/:username', userController.grabProfile, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.post('/createEvent', eventController.addEvent, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.get('/getUsers', userController.getUsers, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.patch('/updateResponse', responseController.updateResponse, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.get('/getEvents', eventController.getEvents, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.get('/getStatuses', eventController.getStatuses, (req, res) => {
+  res.json(res.locals.data);
+});
+
+app.post('/addUsers', responseController.addUsers, (req, res) => {
+  res.json(res.locals.data);
+>>>>>>> master
 })
 
 app.listen(3000, () => console.log('server is running'));
 db.connect();
-
 // {
 //   "id": 1,
 //   "firstname": "joel",

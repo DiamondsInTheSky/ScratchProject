@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect} from 'react-router-dom';
+import { Redirect, Link} from 'react-router-dom';
 
 class Register extends Component {
 
@@ -113,7 +113,7 @@ class Register extends Component {
             <label>Password:</label>
             <input id="signuppassword" type="password" placeholder="(required)" value={this.state.password} onChange={this.handleChangePassword} ></input>
             <button type="submit" id="signupbtn">Sign-up with MoDo</button>
-            <button className="registerbtn">Back to Log In</button>
+            <button className="registerbtn"><Link to = '/login'>Back to Log In</Link></button>
           </div>
         </form>
       </div>
