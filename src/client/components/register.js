@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect} from 'react-router-dom';
 
-class register extends Component {
+class Register extends Component {
 
   constructor(props) {
     super(props);
@@ -83,7 +83,7 @@ class register extends Component {
     // put render logic here
     const { signupSuccess } = this.state;
     if (signupSuccess) {
-      return <Redirect to='/profileCard' user={this.state.email}/>;
+      return <Redirect to='/login'/>;
     }
     return (
       <div id="signupcontent">
@@ -112,7 +112,7 @@ class register extends Component {
             <input id="signupemail" type="text" placeholder="(required)" value={this.state.email} onChange={this.handleChangeEmail} ></input>
             <label>Password:</label>
             <input id="signuppassword" type="password" placeholder="(required)" value={this.state.password} onChange={this.handleChangePassword} ></input>
-            <button id="signupbtn">Sign-up with MoDo</button>
+            <button type="submit" id="signupbtn">Sign-up with MoDo</button>
             <button className="registerbtn">Back to Log In</button>
           </div>
         </form>
@@ -123,4 +123,4 @@ class register extends Component {
 
 }
 
-module.exports = register;
+module.exports = Register;

@@ -7,11 +7,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const pgp = require('pg-promise')(/*options*/);
-const cn = 'postgres://ralggtsz:eh8MiUNlYEBh-iLds9kzp5zePnjPm-oE@nutty-custard-apple.db.elephantsql.com:5432/ralggtsz';
+const cn = 'postgres://uxughpph:07L2n9DVEJJWX1WilogOo88xh89QzKVq@elmer.db.elephantsql.com:5432/uxughpph';
 const db = pgp(cn);
 
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
@@ -52,29 +52,29 @@ passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
 },
-(username, password, done) => {
-  console.log('LOGGING IN: ', username, password);
-  return db.one(`SELECT email FROM users WHERE email = $1`, [username, password])
-    .then((result)=> {
-      return done(null, result);
-    })
-    .catch((err) => {
-      console.log("login error");
-      return done(null, false, {message:'Wrong user name or password'});
-    });
-}));
-  
+  (username, password, done) => {
+    console.log('LOGGING IN: ', username, password);
+    return db.one(`SELECT email FROM users WHERE email = $1`, [username, password])
+      .then((result) => {
+        return done(null, result);
+      })
+      .catch((err) => {
+        console.log("login error");
+        return done(null, false, { message: 'Wrong user name or password' });
+      });
+  }));
+
 app.post('/login',
   passport.authenticate('local'),
   (req, res) => {
     console.log('*********/login', req.body);
     /* res.send(true) is needed for force rerender */
     res.send(true);
-}); 
+  });
 
-app.post('/register', 
+app.post('/register',
   (req, res) => {
-    db.none('INSERT INTO users(firstname, lastname, email, github, linkedin, facebook, twitter, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
+    db.none('INSERT INTO users(firstname, lastname, email, github, linkedin, facebook, twitter, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
       [req.body.fName, req.body.lName, req.body.email, req.body.githubURL, req.body.linkedInURL, req.body.facebookURL, req.body.twitterURL, req.body.password]
     ).then(result => {
       return res.send(true);
@@ -84,10 +84,10 @@ app.post('/register',
   });
 
 app.get('/profile/:username', (req, res) => {
-    console.log('***PROFILE***', req.body, req.params.username);
-    db.one('SELECT * FROM users WHERE email = $1', [req.params.username])
+  console.log('***PROFILE***', req.body, req.params.username);
+  db.one('SELECT * FROM users WHERE email = $1', [req.params.username])
     .then(data => {
-     return res.send(data)
+      return res.send(data)
     })
     .catch(err => {
       console.log(err);
