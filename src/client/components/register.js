@@ -76,6 +76,9 @@ class register extends Component {
             this.setState({ signupSuccess: true })/* To handle logged In User**/
           }
         })
+        .catch(err => {
+          console.log(err);
+        })
   }
 
 
@@ -83,7 +86,7 @@ class register extends Component {
     // put render logic here
     const { signupSuccess } = this.state;
     if (signupSuccess) {
-      return <Redirect to='/profileCard' user={this.state.email}/>;
+      return <Redirect to='/login' user={this.state.email}/>;
     }
     return (
       <div id="signupcontent">
