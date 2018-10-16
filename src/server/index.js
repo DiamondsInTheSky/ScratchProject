@@ -84,14 +84,14 @@ app.post('/register',
   });
 
 app.get('/profile/:username', (req, res) => {
-    console.log('***PROFILE***', req.body, req.params.username);
-    db.one('SELECT * FROM users WHERE email = $1', [req.params.username])
-    .then(data => {
-     return res.send(data)
-    })
-    .catch(err => {
-      console.log(err);
-    })
+  console.log('***PROFILE***', req.body, req.params.username);
+  db.one('SELECT * FROM users WHERE email = $1', [req.params.username])
+  .then(data => {
+    return res.send(data)
+  })
+  .catch(err => {
+    console.log(err);
+  })
 })
 
 app.listen(3000, () => console.log('server is running'));
