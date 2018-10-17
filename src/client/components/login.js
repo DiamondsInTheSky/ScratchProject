@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, Link} from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class Login extends Component {
     this.setState({ password: event.target.value });
   }
   profileRender() {
- 
+
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -57,7 +57,7 @@ class Login extends Component {
   render() {
 
     const { register } = this.state;
-    
+
     const { isLoggedin } = this.state;/** Yet to figure out how to effectivey handle loggedin user. preferably using cookies */
 
     if (register) {
@@ -69,7 +69,7 @@ class Login extends Component {
     }
 
     return (
-    
+
       <div>
 
         <div id="logincontent">
@@ -79,8 +79,8 @@ class Login extends Component {
               <h1>User Login</h1>
               <input type="text" placeholder="Email Address" onChange={this.onChange}></input>
               <input type="password" placeholder="Password" onChange={this.onChange2}></input>
-              <button className="loginbtn" type='submit' value='Submit'>Login</button>
-              <button className="registerbtn" onClick={() => this.setState({ register: true })}>Register</button>
+              <button className='loginbtn' type='submit' value='Submit'>Login</button>
+              <button className='registerbtn' onClick={() => this.setState({ register: true })}>Register</button>
 
             </div>
 
