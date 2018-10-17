@@ -159,17 +159,18 @@ display: inline-block;
   background-color: #80CBC4;
   min-height: 200px;
   height: 100%;
+  width: 300px;
   padding: 50px 150px;
 }
-#userprofile {
-  display: flex;
-  background: #fff;
-  padding: 10px;
-  text-align: center;
-  border: 0px solid #d4d4d4;
-  border-radius: 4px;
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-}
+// #userprofile {
+//   display: flex;
+//   background: #fff;
+//   padding: 10px;
+//   text-align: center;
+//   border: 0px solid #d4d4d4;
+//   border-radius: 4px;
+//   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+// }
 #userprofileleft {
 flex: 0 0 25%;
 background-color: #ba95d4;
@@ -324,8 +325,15 @@ color: black;
   height: 300px;
   margin: 10px;
   text-align: center;
-  line-height: 75px;
   font-size: 30px;
   justify-content: center;
   flex-direction: column;
+}
+
+#event p {
+  margin: 5px;
+}
+
+.wrapper {
+  display: inline-block;
 }
