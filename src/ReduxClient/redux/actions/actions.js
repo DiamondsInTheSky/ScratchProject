@@ -20,6 +20,73 @@ export const getEventsFail = (obj) => ({
   payload: obj
 })
 
+export const getUserListFail = (err) => ({
+  type: types.GET_USER_LIST_FAIL,
+  payload: err
+})
+
+export const getUserListSuccess = (obj) => ({
+  type: types.GET_USER_LIST_SUCCESS,
+  payload: obj
+})
+
+export const postEventSuccess = () => ({
+  type: types.POST_EVENT_SUCCESS
+})
+export const postEventFail = (err) => ({
+  type: types.POST_EVENT_FAIL,
+  payload: err
+})
+
+export const addUserToEvent = (obj) => ({
+  type: types.ADD_USER_TO_EVENT,
+  payload: obj
+})
+
+export function postEvent(eventObj) {
+  return function(dispatch){
+    return fetch('http://localhost:3000/createEvent', {
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        uid: eventObj.uid,
+        title: eventObj.title,
+        description: eventObj.description
+      })
+    })
+    .then((data) => data.json())
+    .then(eventData => {
+      return fetch('http://localhost:3000/addUsers', {
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          userIds:eventObj.userIds,
+          event_id: eventData.id,
+          status: 'undecided'
+        })
+      })
+    })
+    .then(data => {
+      dispatch(postEventSuccess());
+    })
+    .catch(err => {
+      dispatch(postEventFail(err));
+    })
+  }
+}
+export function getUserList() {
+  return function(dispatch){
+    return fetch('http://localhost:3000/getUsers', {
+      headers: {'Content-Type':'application/json'},
+    })
+    .then((res) => res.json())
+    .then(userList => {
+      dispatch(getUserListSuccess(userList));
+    })
+    .catch(err => {
+      dispatch(getUserListFail(err));
+    })
+  }
+}
+
 export function getUserInfo(username) {
   return function (dispatch) {
     return fetch('http://localhost:3000/profile/' + username, {

@@ -2,6 +2,7 @@ import React from 'react';
 import UserList from './UserList';
 
 const AddEvent = (props) => {
+  const linkTo = '/profile/' + props.user.username;
   return (
     <div>
       {/* add dispatch to create event */}
@@ -26,7 +27,7 @@ const AddEvent = (props) => {
           />
         </div>
       </form>
-      <button type="submit" className="registerbtn">Back to Log In</button>
+      <button type="submit" className="registerbtn"><Link to={linkTo} >Create Event</Link></button>
       <UserList />
     </div>
   );

@@ -12,11 +12,12 @@ module.exports = {
     })
   },
   addUsers(req, res, next) {
-    let queryString = 'INSERT INTO user_event_response (uid, title, description) VALUES'
+    let queryString = 'INSERT INTO user_event_response (user_id, event_id, status) VALUES'
     req.body.userIds.forEach(id => {
-      queryString += `(${id}, ${req.body.title}, ${req.body.description}),`;
+      queryString += `(${id}, ${req.body.event_id}, ${req.body.status}),`;
     });
-    queryString += 'RETURNING *';
+    queryString = queryString.slice(0, -1);
+    queryString += ' RETURNING *';
     console.log(queryString);
     db.one(queryString)
     .then(data => {
