@@ -152,7 +152,7 @@ display: inline-block;
 }
 #userprofileouter {
   background-color: #80CBC4;
-  min-height: 800px;
+  min-height: 200px;
   height: 100%;
   padding: 50px 150px;
 }
@@ -252,4 +252,60 @@ color: white;
 width: 40px;
 height: 40px;
 color: black;
+}
+
+
+
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.yesbtn {
+  color: black;
+  margin-top: 20px;
+  background-color: yellow;
+  border-color: #04448a;
+  border-style: none outset outset none;
+  border-width: .2rem;
+  padding: .5rem 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: .3rem;
+}
+
+.nobtn {
+  color: black;
+  margin-top: 20px;
+  background-color: yellow;
+  border-color: #04448a;
+  border-style: none outset outset none;
+  border-width: .2rem;
+  padding: .5rem 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: .3rem;
+}
+
+.infobtn {
+  color: #black;
+  margin-top: 20px;
+  background-color: yellow;
+  border-color: #04448a;
+  border-style: none outset outset none;
+  border-width: .2rem;
+  padding: .5rem 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: .3rem;
+}
+
+#event {
+  background-color: coral;
+  min-height: 200px;
+  height: 100%;
+  padding: 50px 150px;
+  font-size: 1.5rem;
 }
