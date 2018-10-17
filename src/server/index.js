@@ -76,28 +76,6 @@ app.post('/login',
     res.send(true);
   });
 
-<<<<<<< HEAD
-app.post('/register',
-  (req, res) => {
-    db.none('INSERT INTO users(firstname, lastname, email, github, linkedin, facebook, twitter, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-      [req.body.fName, req.body.lName, req.body.email, req.body.githubURL, req.body.linkedInURL, req.body.facebookURL, req.body.twitterURL, req.body.password]
-    ).then(result => {
-      return res.send(true);
-    }).catch(err => {
-      console.log(err);
-    });
-  });
-
-app.get('/profile/:username', (req, res) => {
-  console.log('***PROFILE***', req.body, req.params.username);
-  db.one('SELECT * FROM users WHERE email = $1', [req.params.username])
-    .then(data => {
-      return res.send(data)
-    })
-    .catch(err => {
-      console.log(err);
-    })
-=======
 app.post('/register', userController.addUser, (req, res) => {
   res.send(true);
 });
@@ -117,7 +95,7 @@ app.patch('/updateResponse', responseController.updateResponse, (req, res) => {
   res.json(res.locals.data);
 });
 
-app.get('/getEvents', eventController.getEvents, (req, res) => {
+app.get('/getEvents/:uid', eventController.getEvents, (req, res) => {
   res.json(res.locals.data);
 });
 
@@ -127,7 +105,6 @@ app.get('/getStatuses', eventController.getStatuses, (req, res) => {
 
 app.post('/addUsers', responseController.addUsers, (req, res) => {
   res.json(res.locals.data);
->>>>>>> master
 })
 
 app.listen(3000, () => console.log('server is running'));
