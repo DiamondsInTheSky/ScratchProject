@@ -44,6 +44,18 @@ const eventReducer = (state = initialState, action) => {
       newInvitedUsersArr.push(action.payload);
       newState.invitedUsers = newInvitedUsersArr;
       return newState;
+    case types.CHANGE_STATUS_SUCCESS:
+      newState = Object.assign({}, state);
+      alert('Your response has been recorded!');
+      if(action.payload.status === 'no') {
+        console.log(action.payload.event_id)
+        let neweventsArr = newState.eventsArr.filter(event => {
+          return event.id !== action.payload.event_id
+        })
+        console.log(neweventsArr);
+        newState.eventsArr = neweventsArr;
+        return newState;
+      }
     default:
       return state;
   }
