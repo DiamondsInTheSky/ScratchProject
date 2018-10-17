@@ -75,4 +75,4 @@ const Register = (props) => {
   );
 }
 
-module.exports = register;
+module.exports = Register;
