@@ -14,11 +14,12 @@ const Dashboard = (props) => {
     // };
     return (
     <div>
-      <Event 
+      {/* <Event 
         title={event.title}
         description={event.description}
         eventId={event.id}
-      />
+      /> */}
+      Hello Im gonna be an event.
       {/* add dispatch to confirm event */}
       <button type="button" onClick={() => { }}> yes </button>
       {/* add dispatch to reject event  */}
@@ -28,7 +29,7 @@ const Dashboard = (props) => {
     </div>
     );
   });
-  return { eventComponents };
+  return (eventComponents);
 }
 
 module.exports = Dashboard
