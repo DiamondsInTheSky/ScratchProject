@@ -12,8 +12,16 @@ module.exports = {
     })
   },
   getEvents(req, res, next){
+<<<<<<< HEAD
     db.any('SELECT e.title, e.descripition FROM user_event_response as uer INNER JOIN events as e ON e.id = uer.e_id WHERE uer.u_id = $1', [req.params.uid])
+||||||| merged common ancestors
+    db.any('SELECT e.title, e.descripition FROM user_event_response as uer INNER JOIN events as e ON e.id = uer.e_id WHERE uer.u_id = $1', [req.body.uid])
+=======
+    console.log(req.params.uid);
+    db.any('SELECT e.title, e.description FROM user_event_response as uer INNER JOIN events as e ON e.id = uer.event_id WHERE uer.user_id = $1', [req.params.uid])
+>>>>>>> master
     .then(data => {
+      console.log(data);
       res.locals.data = data;
       return next();
     })

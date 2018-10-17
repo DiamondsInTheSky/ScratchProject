@@ -5,18 +5,10 @@ const app = express();
 // require statements for passport
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-<<<<<<< HEAD
-
-const pgp = require('pg-promise')(/*options*/);
-const cn = 'postgres://uxughpph:07L2n9DVEJJWX1WilogOo88xh89QzKVq@elmer.db.elephantsql.com:5432/uxughpph';
-const db = pgp(cn);
-
-=======
 const userController = require('./Controllers/userController');
 const eventController = require('./Controllers/eventController');
 const responseController = require('./Controllers/responseController');
 const db = require('./postgresql.js');
->>>>>>> master
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
