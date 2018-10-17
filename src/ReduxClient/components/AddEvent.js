@@ -80,7 +80,7 @@ class AddEvent extends Component {
           />
         </div>
       </form>
-      <button onClick={() => {this.props.createEvent(mergedObj)}} className="registerbtn">create event</button>
+      <button onClick={() => {this.props.createEvent(mergedObj)}} className="button">create event</button>
 
       <h2> Invitees</h2>
       {invitedUsers}
