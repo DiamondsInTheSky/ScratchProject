@@ -2,7 +2,7 @@ const db = require('../postgresql.js');
 
 module.exports = {
   updateResponse(req, res, next) {
-    db.one('UPDATE user_event_response AS usr SET status = $1 WHERE usr.uid = $2 AND usr.eid = $3', [req.body.status, req.body.uid, req.body.eid])
+    db.one('UPDATE user_event_response AS usr SET status = $1 WHERE usr.user_id = $2 AND usr.event_id = $3', [req.body.status, req.body.uid, req.body.eid])
     .then(data => {
       res.locals.data = data;
       return next();
@@ -12,13 +12,15 @@ module.exports = {
     })
   },
   addUsers(req, res, next) {
-    let queryString = 'INSERT INTO user_event_response (uid, title, description) VALUES'
+    let queryString = 'INSERT INTO user_event_response (user_id, event_id, status) VALUES'
     req.body.userIds.forEach(id => {
-      queryString += `(${id}, ${req.body.title}, ${req.body.description}),`;
+      console.log(id);
+      queryString += `(${id.userid}, ${req.body.event_id}, \'${req.body.status}\'),`;
     });
-    queryString += 'RETURNING *';
+    queryString = queryString.slice(0, -1);
+    queryString += ' RETURNING *';
     console.log(queryString);
-    db.one(queryString)
+    db.any(queryString)
     .then(data => {
       res.locals.data = data;
       return next();
