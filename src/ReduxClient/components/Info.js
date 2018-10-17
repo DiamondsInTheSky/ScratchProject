@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-
-// import UserList from './UserList';
-
-const Info = (props) => {
-  <div>
-    <button onClick={props.title}>Title</button>
-    <button onClick={props.description}>Description</button>
-    <button onClick={props.attendees}>Attendees</button>
-  </div>
-}
+// import { Redirect, Link} from 'react-router-dom'
 
 
-export default Info;
+const Info =  (props) => {
+
+    render () {
+      const dataArr = [{name: 'kolo'}, {name: 'pablo'}, {name: "oscar"}].map( ele => {
+      return <p>{ele.name}</p>
+    });
+    
+      return (
+        <div>
+          {dataArr}
+        </div>
+      )
+    }
+
+    };
+
+
+
+
+module.exports = Info;

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Info from './Info';
 
 const Dashboard = (props) => {
-  console.log(props)
   const { events } = props;  //<== events should be an array with all user events
   const eventComponents = events.map((event) => {
     // componentDidMount() {
