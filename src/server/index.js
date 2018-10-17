@@ -87,7 +87,7 @@ app.patch('/updateResponse', responseController.updateResponse, (req, res) => {
   res.json(res.locals.data);
 });
 
-app.get('/getEvents', eventController.getEvents, (req, res) => {
+app.get('/getEvents/:uid', eventController.getEvents, (req, res) => {
   res.json(res.locals.data);
 });
 
