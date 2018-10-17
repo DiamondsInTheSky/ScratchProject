@@ -1,8 +1,31 @@
+// This makes sure that the padding and border are included in the total width and height of the elements.
+* {
+  box-sizing: border-box;
+}
+
+button {
+  background-color: yellow;
+  border-style: dashed;
+  border-radius: 12px;
+  color: black;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 1px;
+  cursor: pointer;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+
 @import url('https://fonts.googleapis.com/css?family=Alex+Brush%7COverpass+Mono:600,700');
 html, body {
  font-family: "Segoe UI",Arial,sans-serif;
  display:block;
  height: 100vh;
+ background-color: #ddd;
 }
 
 input {
@@ -19,24 +42,6 @@ input {
    color: #495057;
    background-clip: padding-box;
    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-button {
-display: inline-block;
-   font-weight: 400;
-   text-align: center;
-   white-space: nowrap;
-   vertical-align: middle;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-   border: 1px solid transparent;
-   padding: .375rem .75rem;
-   font-size: 1rem;
-   line-height: 1.5;
-   border-radius: .25rem;
-   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
 #login > div {
@@ -154,17 +159,18 @@ display: inline-block;
   background-color: #80CBC4;
   min-height: 200px;
   height: 100%;
+  width: 300px;
   padding: 50px 150px;
 }
-#userprofile {
-  display: flex;
-  background: #fff;
-  padding: 10px;
-  text-align: center;
-  border: 0px solid #d4d4d4;
-  border-radius: 4px;
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-}
+// #userprofile {
+//   display: flex;
+//   background: #fff;
+//   padding: 10px;
+//   text-align: center;
+//   border: 0px solid #d4d4d4;
+//   border-radius: 4px;
+//   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+// }
 #userprofileleft {
 flex: 0 0 25%;
 background-color: #ba95d4;
@@ -261,6 +267,10 @@ color: black;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: lightpink;
+
 }
 
 .yesbtn {
@@ -303,9 +313,27 @@ color: black;
 }
 
 #event {
-  background-color: coral;
-  min-height: 200px;
-  height: 100%;
-  padding: 50px 150px;
-  font-size: 1.5rem;
+  // background-color: coral;
+  // min-height: 200px;
+  // height: 100%;
+  // padding: 50px 150px;
+  // font-size: 1.5rem;
+
+  display: flex;
+  background-color: #f1f1f1;
+  width: 300px;
+  height: 300px;
+  margin: 10px;
+  text-align: center;
+  font-size: 30px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#event p {
+  margin: 5px;
+}
+
+.wrapper {
+  display: inline-block;
 }

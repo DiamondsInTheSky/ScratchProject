@@ -30,7 +30,7 @@ class HomePage extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <ProfileCard />
         <button><Link to='/AddEvent'> Add an event</Link></button>
         <Dashboard user={this.props.user} changeStatusHandler = {this.props.changeStatus} events={this.props.eventsArr}/>
