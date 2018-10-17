@@ -5,7 +5,6 @@ import Event from './Event';
 const Dashboard = (props) => {
   const { events } = props;  //<== events should be an array with all user events
   const eventComponents = events.map((event) => {
-
     return (
       <Event
         title={event.title}
