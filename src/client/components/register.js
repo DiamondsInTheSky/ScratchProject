@@ -76,6 +76,9 @@ class Register extends Component {
             this.setState({ signupSuccess: true })/* To handle logged In User**/
           }
         })
+        .catch(err => {
+          console.log(err);
+        })
   }
 
 
@@ -83,7 +86,13 @@ class Register extends Component {
     // put render logic here
     const { signupSuccess } = this.state;
     if (signupSuccess) {
+<<<<<<< HEAD
+      return <Redirect to='/login' user={this.state.email}/>;
+||||||| merged common ancestors
+      return <Redirect to='/profileCard' user={this.state.email}/>;
+=======
       return <Redirect to='/login'/>;
+>>>>>>> e052016a813ea596d17a67eefbcf46d38e9502a1
     }
     return (
       <div id="signupcontent">
