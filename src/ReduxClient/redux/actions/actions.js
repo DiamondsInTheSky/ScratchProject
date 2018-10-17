@@ -45,7 +45,9 @@ export const addUserToEvent = (obj) => ({
 
 export function postEvent(eventObj) {
   return function(dispatch){
+    console.log('Attempting to post an event');
     return fetch('http://localhost:3000/createEvent', {
+      method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         uid: eventObj.uid,
@@ -55,19 +57,23 @@ export function postEvent(eventObj) {
     })
     .then((data) => data.json())
     .then(eventData => {
+      console.log('This is some eventData', eventData);
       return fetch('http://localhost:3000/addUsers', {
+        method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          userIds:eventObj.userIds,
+          userIds:eventObj.invitedUsers,
           event_id: eventData.id,
           status: 'undecided'
         })
       })
     })
     .then(data => {
+      console.log('Hitting Post Event Success');
       dispatch(postEventSuccess());
     })
     .catch(err => {
+      console.log(err);
       dispatch(postEventFail(err));
     })
   }
@@ -79,6 +85,7 @@ export function getUserList() {
     })
     .then((res) => res.json())
     .then(userList => {
+      console.log(userList);
       dispatch(getUserListSuccess(userList));
     })
     .catch(err => {
