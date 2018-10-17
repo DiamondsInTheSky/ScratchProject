@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const cors = require('cors');
 
 // require statements for passport
 const passport = require('passport');
@@ -13,8 +14,10 @@ const db = require('./postgresql.js');
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   next();
 });
+app.use(cors());
 
 app.use(bodyParser.json());
 // allows us to create the express sessions for passport
@@ -34,7 +37,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  db.any('SELECT * FROm users;')
+  db.any('SELECT * FROM users;')
     .then((user) => {
       console.log('user');
       done(null, user);

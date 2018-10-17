@@ -43,6 +43,39 @@ export const addUserToEvent = (obj) => ({
   payload: obj
 })
 
+export const changeStatusSuccess = (obj) => ({
+  type: types.CHANGE_STATUS_SUCCESS,
+  payload: obj
+})
+
+export const changeStatusFail = () => ({
+  type: types.CHANGE_STATUS_FAIL,
+});
+
+export function changeStatus(obj) {
+  return function(dispatch){
+    console.log(obj);
+    return fetch('http://localhost:3000/updateResponse', {
+      method: 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        userid: obj.userid,
+        eventid: obj.eventid,
+        status: obj.status
+      })
+    })
+    .then(data => data.json())
+    .then((data) => {
+      console.log(data);
+      dispatch(changeStatusSuccess(data));
+    })
+    .catch(err => {
+      dispatch(changeStatusFail(err));
+    })
+  }
+
+}
+
 export function postEvent(eventObj) {
   return function(dispatch){
     console.log('Attempting to post an event');

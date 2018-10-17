@@ -6,12 +6,14 @@ import { connect } from 'react-redux';
 import * as actions from '../redux/actions/actions';
 
 const mapStateToProps = (store) => ({
-  eventsArr: store.posts.eventsArr
+  eventsArr: store.posts.eventsArr,
+  user: store.posts.user
 });
 const mapDispatchToProps = (dispatch) => {
 
   return {
     fetchData: (username) => dispatch(actions.getUserInfo(username)),
+    changeStatus: (obj) => dispatch(actions.changeStatus(obj))
   }
 }
 
@@ -31,7 +33,7 @@ class HomePage extends Component {
       <div className="wrapper">
         <ProfileCard />
         <button><Link to='/AddEvent'> Add an event</Link></button>
-        <Dashboard events={this.props.eventsArr}/>
+        <Dashboard user={this.props.user} changeStatusHandler = {this.props.changeStatus} events={this.props.eventsArr}/>
       </div>
     )
   }

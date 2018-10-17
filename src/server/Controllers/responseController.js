@@ -2,7 +2,8 @@ const db = require('../postgresql.js');
 
 module.exports = {
   updateResponse(req, res, next) {
-    db.one('UPDATE user_event_response AS usr SET status = $1 WHERE usr.user_id = $2 AND usr.event_id = $3', [req.body.status, req.body.uid, req.body.eid])
+    console.log(req.body);
+    db.one('UPDATE user_event_response AS usr SET status = $1 WHERE usr.user_id = $2 AND usr.event_id = $3 RETURNING *', [req.body.status, req.body.userid, req.body.eventid])
     .then(data => {
       res.locals.data = data;
       return next();
