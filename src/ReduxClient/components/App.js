@@ -5,6 +5,7 @@ import Register from './Register';
 import Error from './Error';
 import HomePage from './HomePage';
 import Navigation from './Navigationbar'
+import Info from './Info'
 import AddEvent from './AddEvent';
 
 
@@ -17,6 +18,7 @@ const App = () => (
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/profile/:username" component={HomePage} />
+        <Route Path="/info" component={Info} />
         <Route path="/addEvent" component={AddEvent} />
         <Route component={Error} />
       </Switch>
