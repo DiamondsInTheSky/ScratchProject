@@ -1,24 +1,42 @@
 import React, { Component } from 'react';
-// import { Redirect, Link} from 'react-router-dom'
+import { connect } from 'react-redux';
+import * as actions from '../redux/actions/actions'
+import { Redirect, Link} from 'react-router-dom'
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getYesUsers: (eventId) => dispatch(actions.getYesUsers(eventId)),
+  }
+}
+const mapStateToProps = (store) => ({
+  userArr: store.posts.userArr,
+
+});
+
+class Info extends Component {
+  constructor(props){
+    super(props);
+  }
+  componentDidMount(){
+    console.log(this.props.location.state.eventId);
+    this.props.getYesUsers(this.props.location.state.eventId);
+  }
 
 
-const Info =  (props) => {
-
-    render () {
-      const dataArr = [{name: 'kolo'}, {name: 'pablo'}, {name: "oscar"}].map( ele => {
-      return <p>{ele.name}</p>
-    });
-    
-      return (
-        <div>
+  render() {
+        const dataArr = this.props.userArr.map(ele => {
+      return <p>{ele.firstname}</p>
+  });
+  
+    return (
+      <div>
+        <h2>People who have accepted:</h2>
           {dataArr}
-        </div>
-      )
-    }
+      </div>
+    )
+  }
 
-    };
-
-
+};
 
 
-module.exports = Info;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Info);

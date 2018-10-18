@@ -23,7 +23,7 @@ const Event = (props) => {
         {/* add dispatch to reject event  */}
         <button className="nobtn" type="button" onClick={() => {props.changeStatusHandler(noStatus)}}> no </button>
         {/* CREATE INFO PAGE */}
-        <button className="infobtn" type="button"><Link to="/info"> info </Link></button>
+        <button className="infobtn" type="button"><Link to={{pathname: "/info", state: {eventId: props.eventId}}}>info</Link></button>
 
       </div>
     </div>
