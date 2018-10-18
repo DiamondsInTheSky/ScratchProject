@@ -18,8 +18,8 @@ const App = () => (
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/profile/:username" component={HomePage} />
+        <Route path="/AddEvent" component={AddEvent} />
         <Route Path="/info" component={Info} />
-        <Route path="/addEvent" component={AddEvent} />
         <Route component={Error} />
       </Switch>
     </div>

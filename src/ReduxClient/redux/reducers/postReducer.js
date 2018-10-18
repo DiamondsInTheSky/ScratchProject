@@ -56,6 +56,11 @@ const eventReducer = (state = initialState, action) => {
         newState.eventsArr = neweventsArr;
         return newState;
       }
+      return newState;
+    case types.GET_YES_USERS_SUCCESS:
+      newState = Object.assign({}, state);
+      newState.userArr = action.payload
+      return newState;
     default:
       return state;
   }

@@ -24,8 +24,9 @@ module.exports = {
     })
   },
   getStatuses(req, res, next) {
-    db.any('SELECT u.name, usr.status FROM user_event_response as uer INNER JOIN users as u ON uer.user_id = u.id WHERE uer.status = yes AND uer.event_id = $1',[req.body.eid])
+    db.any('SELECT u.firstname, uer.status FROM user_event_response as uer INNER JOIN users as u ON uer.user_id = u.id WHERE uer.status = \'yes\' AND uer.event_id = $1',[req.params.eid])
     .then(data => {
+      console.log(data, "Getting this from YES USERS");
       res.locals.data = data;
       return next();
     })

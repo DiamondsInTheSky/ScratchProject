@@ -94,7 +94,7 @@ app.get('/getEvents/:uid', eventController.getEvents, (req, res) => {
   res.json(res.locals.data);
 });
 
-app.get('/getStatuses', eventController.getStatuses, (req, res) => {
+app.get('/getStatuses/:eid', eventController.getStatuses, (req, res) => {
   res.json(res.locals.data);
 });
 

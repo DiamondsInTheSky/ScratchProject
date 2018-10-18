@@ -52,6 +52,41 @@ export const changeStatusFail = () => ({
   type: types.CHANGE_STATUS_FAIL,
 });
 
+export const getYesUsersSuccess = (obj) => ({
+  type: types.GET_YES_USERS_SUCCESS,
+  payload: obj
+})
+
+export const getYesUsersFail = () => ({
+  type: types.GET_YES_USERS_FAIL,
+})
+
+
+export function getYesUsers(eventId) {
+  return function(dispatch) {
+    const fetchUrl = 'http://localhost:3000/getStatuses/' + eventId;
+    console.log(fetchUrl);
+    return fetch(fetchUrl, {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'}
+    })
+    .then(data => data.json())
+    .then(userData => {
+      console.log(userData,'users');
+      if(Array.isArray(userData)){
+        dispatch(getYesUsersSuccess(userData))
+      } else{
+        dispatch(getYesUsersSuccess([userData]))
+      }
+    })
+    .catch(((err) => {
+      console.log(err);
+      dispatch(getYesUsersFail(err))
+    }))
+  }
+}
+
+
 export function changeStatus(obj) {
   return function(dispatch){
     console.log(obj);
